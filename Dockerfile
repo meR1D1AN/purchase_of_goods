@@ -4,18 +4,17 @@ FROM python:3.12.5-slim
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Устанавливаем Poetry
-RUN pip install --no-cache-dir poetry
 
 # Копируем файлы конфигурации Poetry (pyproject.toml и poetry.lock)
-COPY pyproject.toml poetry.lock* /app/
+COPY pyproject.toml poetry.lock ./
 
 # Устанавливаем зависимости проекта
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+RUN install --no-cache-dir poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-interaction --no-ansi --no-dev --no-root
 
 # Копируем весь код приложения в рабочую директорию контейнера
-COPY . /app
+COPY . .
 
 # Запускаем приложение с помощью Uvicorn
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
