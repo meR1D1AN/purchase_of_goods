@@ -9,7 +9,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 
 # Устанавливаем зависимости проекта
-RUN install --no-cache-dir poetry && \
+RUN pip install --no-cache-dir poetry && \
     poetry config virtualenvs.create false && \
     poetry install --no-interaction --no-ansi --no-dev --no-root
 
