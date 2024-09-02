@@ -2,7 +2,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from datetime import datetime
 from .database import Base
-from typing import Optional
 
 
 class User(Base):
